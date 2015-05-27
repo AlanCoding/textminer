@@ -92,7 +92,7 @@ def test_date(input, expected):
     ("9/4", None),
     ("2015", None),
 ])
-def test_date(input, expected):
+def test_date2(input, expected):
     assert s.date(input) == expected
 
 

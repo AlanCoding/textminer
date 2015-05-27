@@ -1,7 +1,7 @@
 import re
 
 word_regx = "([A-Za-z0-9]+\-)?[A-Za-z]+"
-#word_regx = "[A-Za-z]+"
+
 
 def words(text):
     p = re.compile(r"\b(?:\w*\-)?[A-Za-z]+\b")
@@ -11,16 +11,12 @@ def words(text):
     else:
         return a_list
 
+
 def phone_number(text):
     d = {}
-#    a_list = re.findall(r"^(\(?\d{3}\)?)?[\s\.\-]?\d{3}[\s\.\-]?\d{4}", text)
     a_list = re.findall(r"(\d{4}$|\d{3})", text)
-#    a_list = re.split(r"\)?[\-\.\s/(]", text)
-#    if "" in a_list:
-#        a_list.remove("")
     if len(a_list[-1]) < 4:
         return None
-#    print(a_list)
     if len(a_list) == 2:
         d["number"] = a_list[0]+"-"+a_list[1]
         return d
@@ -31,6 +27,7 @@ def phone_number(text):
     else:
         return None
 
+
 def money(text):
     a_list = re.findall(r"(\$|\.|\d+|\d{2}$)", text)
     print(a_list)
@@ -38,8 +35,6 @@ def money(text):
         return None
     d = {}
     d["currency"] = a_list.pop(0)
-#    dollars = a_list.index("$")
-#    a_list.remove("$")
     if "." in a_list:
         dot = a_list.index(".")
         a_list.remove(".")
@@ -58,13 +53,11 @@ def money(text):
         p = len(a_list[n])
         if not a_list[n].isdigit():
             return None
-        if n>0 and len(a_list[n])<3:
+        if n > 0 and len(a_list[n]) < 3:
             return None
         the_sum = the_sum + int(a_list[n])*power
         power *= 10**p
         a_list.pop(n)
-#    d = {}
-#    d["currency"] = "$"
     d["amount"] = the_sum
     return d
 
@@ -76,13 +69,16 @@ def zipcode(text):
     if match is None:
         return None
     a_dict = match.groupdict()
-    if "plus4" not in a_dict:
-        a_dict["plus4"] = None
     return a_dict
+
 
 def date(text):
     if bool(re.search(r"\-", text)):
         regex = re.compile(r"(?P<year>\d{4})\-(?P<month>\d{2})\-(?P<day>\d{2})")
+    elif bool(re.search(r"/", text)):
+        regex = re.compile(r"(?P<month>\d{1,2})/(?P<day>\d{1,2})/(?P<year>\d{4})")
+    else:
+        return None
     match = regex.search(text)
     if match is None:
         return None
@@ -90,7 +86,6 @@ def date(text):
     for tag in a_dict:
         a_dict[tag] = int(a_dict[tag])
     return a_dict
-
 
 
 if __name__ == '__main__':

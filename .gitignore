@@ -58,4 +58,5 @@ docs/_build/
 
 # PyBuilder
 target/
-
+.DS_Store
+marys_truck.py
