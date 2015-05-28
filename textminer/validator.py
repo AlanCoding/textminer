@@ -46,6 +46,10 @@ def money(text):
 def date(text):
     return bool(re.search(r"\d+[/\-]\d+[/\-]\d+", text))
 
+def email(text):
+    return bool(re.search(r"(\w+\.)?\w+@\w+\.\w+", text))
+
+
 
 if __name__ == '__main__':
     print(binary("0"))
@@ -63,3 +67,5 @@ if __name__ == '__main__':
     print(" ")
     print(" money")
     print(money("$12,34"))
+    print(" ")
+    print(email("stroman.azariah@yahoo.com"))

@@ -138,7 +138,6 @@ def test_hard_date():
     assert not v.date("02/30/2015")
 
 
-@xfail
 def test_email():
     """Some of the emails listed as invalid are actually valid according to
     the email spec, but we will not accept them."""
