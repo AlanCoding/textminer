@@ -87,6 +87,18 @@ def date(text):
         a_dict[tag] = int(a_dict[tag])
     return a_dict
 
+def plaindrome(text):
+    cleaned = re.sub(r"[^A-Za-z]", "", text).lower()
+    return bool(re.match(r"^(\w+)\1$", cleaned + cleaned[::-1]))
+
+def plaindromes(text):
+    word_list = words(text)
+    return_list = []
+    for word in word_list:
+        if plaindrome(word):
+            return_list.append(word)
+    return return_list
+
 
 if __name__ == '__main__':
     text = "mary had a little 18-wheeler lamb"
@@ -104,3 +116,7 @@ if __name__ == '__main__':
     print(" ")
     print(" date")
     print(date("1976-09-40"))
+    print(" ")
+    print(" plaindrome")
+    print(plaindrome("cabac"))
+    print(plaindromes("Mos isley cabac fun dad llall"))
